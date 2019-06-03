@@ -6,7 +6,7 @@
            :webkit-playsinline="!fullScreen"
            :playsinline="!fullScreen"
            :x5-video-player-type="fullScreen ? 'h5' : '' "
-           x5-video-orientation="portrait"
+           :x5-video-orientation="orientation"
            id="play-video"
            @click="handleClick"
            :src="videoUrl"
@@ -48,6 +48,10 @@ export default {
     borderRadius: {
       type: Number,
       default: 8
+    },
+    orientation: {
+      default: 'portraint',
+      type: String
     }
   },
   data () {
@@ -102,6 +106,11 @@ export default {
   },
   methods: {
     handlePlay () {
+      if (!this.isH5 && this.fullScreen) {
+        this.video.play()
+        this.isPlay = false
+        return
+      }
       this.video.play()
       this.isPlay = true
     },
