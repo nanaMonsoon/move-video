@@ -1,2 +1,4 @@
-export default 'hello'
+import VideoPlayback from './VideoPlayback'
+
+export default VideoPlayback
 

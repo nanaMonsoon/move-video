@@ -14,7 +14,7 @@ const config = {
                 loader: 'vue-loader'
             },
             {
-                test: /\.css$/,
+                test: /\.(css|scss)$/,
                 use: [
                     'vue-style-loader',
                     { loader: 'css-loader', options: { importLoaders: 1 } },
@@ -25,16 +25,23 @@ const config = {
                                 path: path.join(__dirname, '../postcss.config.js')
                             }
                         }
+                    },
+                    {
+                        loader: "sass-loader" // 将 Sass 编译成 CSS
                     }
                 ]
             },
             {
                 test: /\.(png|jpg|gif|ttf|woff|eot|svg)$/,
-                loader: 'url-loader',
-                query: {
-                    limit: 10000,
-                    name:'style/fonts/[name].[hash].[ext]'
-                }
+                use: [
+                    {
+                        loader: 'url-loader',
+                        query: {
+                            limit: 10000,
+                            name:'style/fonts/[name].[hash].[ext]'
+                        }
+                    }
+                ]
             }
         ]
     },
