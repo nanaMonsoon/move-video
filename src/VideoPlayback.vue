@@ -1,7 +1,6 @@
 <template>
-  <div class="video-box">
-    <video :style="{width:payVideoWidth, height: payVideoHeight, borderRadius: 8 + 'px'}"
-           v-show='!isPoster && isInit'
+  <div class="video-box" :style="{width: payVideoWidth, height: payVideoHeight, borderRadius: 8 + 'px'}">
+    <video v-show='!isPoster && isInit'
            loop
            :webkit-playsinline="!fullScreen"
            :playsinline="!fullScreen"
@@ -13,7 +12,7 @@
            :controls="controls"
            >
     </video>
-    <img  :style="{width:payVideoWidth, height: payVideoHeight}"
+    <img  :style="{width: videoWidth, height: videoHeight}"
           v-if="(isPoster || (!isPoster && !isInit)) && initIcon"
           class="video-poster"
           :src="imageUrl"/>
@@ -84,7 +83,7 @@ export default {
       })
       this.video.addEventListener("x5videoexitfullscreen", () => {
         this.isPlay = false
-        this.setVideoSize(this.payVideoWidth, this.payVideoHeight)
+        this.setVideoSize(this.videoWidth, this.videoHeight)
       }, false)
       this.video.addEventListener("x5videoenterfullscreen", () => {
         this.setVideoSize(window.innerWidth + "px", window.innerHeight + "px")
@@ -107,6 +106,7 @@ export default {
       this.isPlay = true
     },
     setFullScreen () {
+      if (!this.fullScreen) return ''
       let ele = this.video
       if (ele.requestFullscreen) {
         ele.requestFullscreen();
@@ -129,6 +129,8 @@ export default {
     setVideoSize (innerWidth, innerHeight) {
       this.video.style.width = innerWidth
       this.video.style.height =  innerHeight
+      this.payVideoWidth = innerWidth
+      this.payVideoHeight = innerHeight
     },
     pause () {
       this.video.pause()
@@ -153,6 +155,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 
   .layer {
     position: absolute;

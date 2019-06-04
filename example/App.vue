@@ -6,7 +6,7 @@
                 icon-height = "51px"
                 videoWidth = "281px"
                 videoHeight = "501px"
-                :full-screen="true"
+                :full-screen="false"
                 :init-icon="initIcon"
                 :controls="false"
                 :load-icon="loadIcon"
