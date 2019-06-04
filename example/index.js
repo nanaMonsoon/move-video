@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import App from './App'
 import vconsole from 'vconsole'
-import VideoPlayback from '../src'
+import moveVideo from '../src'
 new vconsole()
 
-Vue.component('VideoPlayback', VideoPlayback)
+Vue.component('moveVideo', moveVideo)
 
 new Vue({
     el: '#app',

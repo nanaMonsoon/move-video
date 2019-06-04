@@ -1,6 +1,6 @@
 {
   "name": "move-video",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "移动端视频播放",
   "main": "lib/index.js",
   "scripts": {

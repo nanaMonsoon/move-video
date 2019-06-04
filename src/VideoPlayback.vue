@@ -142,7 +142,6 @@ export default {
       this.isPlay = false
     },
     handleClick () {
-      console.log(this.isPlay, this.fullScreen)
       if (this.isPlay && this.fullScreen) {
         this.video.play()
         return

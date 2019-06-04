@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <video-playback
+        <move-video
                 class = "video-playback"
                 icon-width = "48px"
                 icon-height = "51px"

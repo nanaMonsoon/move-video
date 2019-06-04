@@ -1,26 +1,21 @@
 ## scroll-tab-bar文档
 
 ### 组件介绍
- 移动端滑动切换菜单栏组件，简单易用，一秒实现移动端滑动切换效果，与swiper组件不同的是，该组件主要用来做滑动切换页面，支持动态修改页面，动态撑开高度，兼容ios/Android，良好的页面性能。
-
-
-![效果图](https://github.com/abpanxianhui/scroll-tab-bar/blob/master/example/demo.gif)
-
+基于vue的，web移动端视频播放组件，解决移动端视频视频层级，全屏播放问题
 
 ### npm安装
 
 ~~~
-npm i scroll-tab-bar --save
+npm i move-video --save
 ~~~
 
 ### 组件注册
 ```
 import Vue from 'vue'
 import App from './App'
-import { ScrollTab, ScrollTabCol } from '../src/index'
+import moveVideo from 'move-video'
 
-Vue.component('scrollTab', ScrollTab)
-Vue.component('ScrollTabCol', ScrollTabCol)
+Vue.component('moveVideo', moveVideo)
 
 new Vue({
     el: '#app',
@@ -34,40 +29,24 @@ new Vue({
 ```
 <template>
     <div id="app" ref="li">
-        # 标签栏
-        <ul class="label-list">
-            <li class="label-list-item" :class="{'select-label-list-item': index === 0}" @click="index = 0">1</li>
-            <li class="label-list-item" :class="{'select-label-list-item': index === 1}" @click="index = 1">2</li>
-            <li class="label-list-item" :class="{'select-label-list-item': index === 2}" @click="index = 2">3</li>
-            <li class="label-list-item" :class="{'select-label-list-item': index === 3}" @click="index = 3">4</li>
-            <li class="label-list-item" :class="{'select-label-list-item': index === 4}" @click="index = 4">5</li>
-        </ul>
-        # 外层组件
-        <scroll-tab :current-select="index" :touch-delay="0.3" @selectChange="handleSelectChange">
-            # 被切换的页面组件
-            <scroll-tab-col class="item"><div class="item1">1</div></scroll-tab-col>
-            <scroll-tab-col class="item"><div class="item2">2</div></scroll-tab-col>
-            <scroll-tab-col class="item"><div>3</div></scroll-tab-col>
-            <scroll-tab-col class="item"><div>4</div></scroll-tab-col>
-            <scroll-tab-col class="item"><div>5</div></scroll-tab-col>
-        </scroll-tab>
+       <move-video
+           class = "video-playback"
+           icon-width = "48px"
+           icon-height = "51px"
+           videoWidth = "281px"
+           videoHeight = "501px"
+           :full-screen = "false"
+           :init-icon = "initIcon"
+           :controls = "false"
+           :load-icon = "loadIcon"
+           video-url = "https://vod-dpy.bhbcdn.com/cv-vod_b323de_1554893977654.mp4"
+           image-url = "https://img-dpy.bhbcdn.com/cv-img_b1d731_1554894122628.jpg"
+       />
     </div>
 </template>
 
 <script>
     export default {
-        data () {
-            return {
-                index: 0
-            }
-        },
-        methods: {
-            handleSelectChange (tabIndex) {
-                this.index = tabIndex
-            }
-        },
-        created () {
-        }
     }
 </script>
 
