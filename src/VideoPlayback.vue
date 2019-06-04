@@ -1,5 +1,5 @@
 <template>
-  <div class="video-box" :style="{width: payVideoWidth, height: payVideoHeight, borderRadius: 8 + 'px'}">
+  <div class="video-box" @click="handleClick" :style="{width: payVideoWidth, height: payVideoHeight, borderRadius: 8 + 'px'}">
     <video v-show='!isPoster && isInit'
            loop
            :webkit-playsinline="!fullScreen"
@@ -7,7 +7,6 @@
            :x5-video-player-type="fullScreen ? 'h5' : '' "
            :x5-video-orientation="orientation"
            id="play-video"
-           @click="handleClick"
            :src="videoUrl"
            :controls="controls"
            >
@@ -16,13 +15,13 @@
           v-if="(isPoster || (!isPoster && !isInit)) && initIcon"
           class="video-poster"
           :src="imageUrl"/>
-    <img  v-show="!isPoster && !isInit && loadIcon"
+    <img  v-show="isPlay && !isInitIcon"
           class="video-load"
           :src="loadIcon"/>
     <img  class="video-buttom"
-          v-if="!isPlay"
-          :style="{width:iconWidth, height: iconHeight}"
-          @click="handlePlay"
+          @click="handlePlay($event)"
+          v-if="!isPlay && (isPoster || isInitIcon || !isInit)"
+          :style="{width: iconWidth, height: iconHeight}"
           :src="initIcon"/>
   </div>
 </template>
@@ -57,6 +56,7 @@ export default {
       isPoster: true,
       isPlay: false,
       isInit: false,
+      isInitIcon: false,
       canvas: '',
       showImage: '',
       isShare: false
@@ -93,6 +93,7 @@ export default {
     const timeupdate = () => {
       if (this.video.currentTime >= 0.1) {
         //进入全屏
+        this.isInitIcon = true
         this.setFullScreen()
         this.isInit = true
         this.video.removeEventListener('timeupdate', timeupdate, false)
@@ -101,12 +102,13 @@ export default {
     this.video.addEventListener('timeupdate', timeupdate, false)
   },
   methods: {
-    handlePlay () {
+    handlePlay (e) {
+      e.stopPropagation()
       this.video.play()
       this.isPlay = true
     },
     setFullScreen () {
-      if (!this.fullScreen) return ''
+      if (!this.fullScreen || this.isH5) return ''
       let ele = this.video
       if (ele.requestFullscreen) {
         ele.requestFullscreen();
@@ -137,6 +139,11 @@ export default {
       this.isPlay = false
     },
     handleClick () {
+      console.log(this.isPlay, this.fullScreen)
+      if (this.isPlay && this.fullScreen) {
+        this.video.play()
+        return
+      }
       if (!this.isPlay) {
         this.video.play()
         this.isPlay = true
