@@ -9,20 +9,23 @@
            id="play-video"
            :src="videoUrl"
            :controls="controls"
-           >
+    >
     </video>
     <img  :style="{width: videoWidth, height: videoHeight}"
           v-if="(isPoster || (!isPoster && !isInit)) && initIcon"
           class="video-poster"
-          :src="imageUrl"/>
+          :src="imageUrl"
+    />
     <img  v-show="isPlay && !isInitIcon"
           class="video-load"
-          :src="loadIcon"/>
+          :src="loadIcon"
+    />
     <img  class="video-buttom"
           @click="handlePlay($event)"
           v-if="!isPlay && (isPoster || isInitIcon || !isInit)"
           :style="{width: iconWidth, height: iconHeight}"
-          :src="initIcon"/>
+          :src="initIcon"
+    />
   </div>
 </template>
 
