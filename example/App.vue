@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <move-video
+                :loop="true"
                 class = "video-playback"
                 icon-width = "48px"
                 icon-height = "51px"

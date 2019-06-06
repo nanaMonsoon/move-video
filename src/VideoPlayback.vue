@@ -1,7 +1,7 @@
 <template>
   <div class="video-box" @click="handleClick" :style="{width: payVideoWidth, height: payVideoHeight, borderRadius: 8 + 'px'}">
     <video v-show='!isPoster && isInit'
-           loop
+           :loop="loop"
            :webkit-playsinline="!fullScreen"
            :playsinline="!fullScreen"
            :x5-video-player-type="fullScreen ? 'h5' : '' "
@@ -33,6 +33,18 @@
 export default {
   name: 'VideoPlayback',
   props: {
+    orientation: {
+      default: 'portraint',
+      type: String
+    },
+    loop: {
+      type: Boolean,
+      default: true
+    },
+    borderRadius: {
+      type: Number,
+      default: 8
+    },
     initIcon: null,
     loadIcon: null,
     videoWidth: null,
@@ -42,14 +54,6 @@ export default {
     videoUrl: null,
     imageUrl: null,
     fullScreen: Boolean,
-    borderRadius: {
-      type: Number,
-      default: 8
-    },
-    orientation: {
-      default: 'portraint',
-      type: String
-    },
     controls: Boolean
   },
   data () {
